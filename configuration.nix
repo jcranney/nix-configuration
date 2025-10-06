@@ -67,9 +67,6 @@
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -103,7 +100,7 @@
       vim vscode chezmoi git insync
       openscad prusa-slicer vlc slack yed tldr
       xournalpp guake uv nur-jcranney.para-audit nur-jcranney.mount-clt
-      htop zoom-us 
+      htop zoom-us quickemu ripgrep
     ];
     programs.zsh = {
       enable = true;
@@ -113,13 +110,12 @@
          ll = "ls -ltrha";
       };
       sessionVariables = {
-         PATH = "$PATH:$HOME/.local/bin/para_tracker";
          PARA_HOME = "$HOME/gdrive";
          PARA_GIT = "$HOME/git";
          EDITOR = "vim";
       };
       initContent = let
-        paratracker = "$HOME/.local/bin/para_tracker";
+        paratracker = "$PARA_HOME/resources/para_tracking/para_tracker.py";
       in
         ''        
         ${paratracker}
@@ -161,6 +157,19 @@
     enable = true;
   };
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
+  };
 
 
   # List packages installed in system profile. To search, run:
@@ -184,10 +193,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
