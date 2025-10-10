@@ -5,10 +5,20 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
+  imports = let 
+    # replace this with an actual commit id or tag
+    sopsCommit = "6e5a38e08a2c31ae687504196a230ae00ea95133";
+  in [ 
     <home-manager/nixos>
     ./hardware-configuration.nix
+    "${builtins.fetchTarball {
+      url = "https://github.com/Mic92/sops-nix/archive/${sopsCommit}.tar.gz";
+      # replace this with an actual hash
+      sha256 = "02gmjxfad757d2c4is749sn2d781rw17y1fbw7xm6c4b9n5wmz2j";
+    }}/modules/sops"
   ];
+
+  nix.nixPath = [ "nixos-config=/home/jcranney/git/nix-configuration/configuration.nix" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -97,17 +107,23 @@
     };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
-      vim vscode chezmoi git insync
+      vim vscode chezmoi insync
       openscad prusa-slicer vlc slack yed tldr
       xournalpp guake uv nur-jcranney.para-audit nur-jcranney.mount-clt
       htop zoom-us quickemu ripgrep
     ];
+    programs.git = {
+      enable = true;
+      extraConfig.core.editor = "vim";
+      userEmail = "jesse.cranney@anu.edu.au";
+      userName = "Jesse Cranney";
+    };
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
-         ll = "ls -ltrha";
+         ll = "ls -ltAh";
       };
       sessionVariables = {
          PARA_HOME = "$HOME/gdrive";
@@ -140,12 +156,13 @@
       };
       Service = {
         ExecStart = "${pkgs.guake}/bin/guake --hide";
+        Restart = "always";
       };
     };
   };
   users.users.jcranney = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -156,6 +173,8 @@
   programs.nix-ld = {
     enable = true;
   };
+
+  virtualisation.docker.enable = true;
 
   services.avahi = {
     enable = true;
@@ -195,10 +214,10 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.allowedTCPPorts = [ 80 443 1883 8886 ];
+  # networking.firewall.allowedUDPPorts = [ 53 67 6666 6667 ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
