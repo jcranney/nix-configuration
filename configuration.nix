@@ -18,8 +18,6 @@
     }}/modules/sops"
   ];
 
-  nix.nixPath = [ "nixos-config=/home/jcranney/git/nix-configuration/configuration.nix" ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
