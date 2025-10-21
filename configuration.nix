@@ -69,6 +69,15 @@
   ];
 
 
+  # to be able to talk to the 192.168.7.x subnet:
+  networking.interfaces.wlp0s20f3 = {
+    ipv4.addresses = [{
+      address = "192.168.1.118";
+      prefixLength = 16;
+    }];
+  };
+
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "au";
@@ -99,16 +108,18 @@
   # Use home manager to set up user configuration
   home-manager.users.jcranney = { pkgs, ... }: {
     nixpkgs.config.packageOverrides = pkgs: {
-      nur-jcranney = import (fetchTarball "https://github.com/jcranney/nur-packages/archive/refs/tags/v0.3.tar.gz") {
+      nur-jcranney = import (fetchTarball "https://github.com/jcranney/nur-packages/archive/refs/tags/v0.4.tar.gz") {
         inherit pkgs;
       };
     };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
-      vim vscode chezmoi insync
-      openscad prusa-slicer vlc slack yed tldr
-      xournalpp guake uv nur-jcranney.para-audit nur-jcranney.mount-clt
-      htop zoom-us quickemu ripgrep
+      vim vscode ripgrep htop guake tldr  # core cli/dev tools
+      insync nur-jcranney.para-audit  # filesystem/organisation
+      openscad prusa-slicer freecad inkscape  # design/3d printing
+      slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
+      uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
+      xournalpp libreoffice vlc  # normal human stuff
     ];
     programs.git = {
       enable = true;
@@ -122,6 +133,7 @@
       syntaxHighlighting.enable = true;
       shellAliases = {
          ll = "ls -ltAh";
+         vpn = "gpclient --fix-openssl connect --browser=firefox staff-access.anu.edu.au";
       };
       sessionVariables = {
          PARA_HOME = "$HOME/gdrive";
@@ -188,12 +200,17 @@
     ];
   };
 
+  programs.hyprland.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    kitty
+    waybar
+    wofi
+    nwg-look
   ];
   nix.extraOptions = "experimental-features = nix-command";
 
