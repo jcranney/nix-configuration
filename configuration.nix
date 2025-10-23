@@ -114,7 +114,7 @@
     };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
-      vim vscode ripgrep htop guake tldr  # core cli/dev tools
+      vim vscode ripgrep htop guake tldr wget  # core cli/dev tools
       insync nur-jcranney.para-audit  # filesystem/organisation
       openscad prusa-slicer freecad inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
