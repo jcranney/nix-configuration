@@ -105,6 +105,7 @@
     "jcranney"
   ];
 
+
   # Use home manager to set up user configuration
   home-manager.users.jcranney = { pkgs, ... }: {
     nixpkgs.config.packageOverrides = pkgs: {
@@ -133,7 +134,7 @@
       syntaxHighlighting.enable = true;
       shellAliases = {
          ll = "ls -ltAh";
-         vpn = "gpclient --fix-openssl connect --browser=firefox staff-access.anu.edu.au";
+         vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
       };
       sessionVariables = {
          PARA_HOME = "$HOME/gdrive";
