@@ -96,7 +96,7 @@
   
   # VM management
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["your_username"];
+  users.groups.libvirtd.members = ["jcranney"];
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
@@ -115,7 +115,7 @@
     };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
-      vim vscode ripgrep htop guake tldr wget dig  # core cli/dev tools
+      vim vscode ripgrep htop guake tldr wget dig xclip # core cli/dev tools
       insync nur-jcranney.para-audit  # filesystem/organisation
       openscad prusa-slicer freecad inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
@@ -135,6 +135,7 @@
       shellAliases = {
          ll = "ls -ltAh";
          vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
+         copy = "xclip -sel clip";
       };
       sessionVariables = {
          PARA_HOME = "$HOME/gdrive";
@@ -158,6 +159,15 @@
     home.stateVersion = "25.11";
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
+    programs.rbw = {
+      enable = true;
+      settings = {
+        email = "jac1616@hotmail.com";
+        lock_timeout = 300;
+        pinentry = pkgs.pinentry-gnome3;
+        base_url = "https://vault.donfax.com";
+      };
+    };
     systemd.user.services.guake = {
       Unit = {
         Description = "Guake drop down terminal";
@@ -170,6 +180,14 @@
         Restart = "always";
       };
     };
+   # systemd.user.services.vpn = {
+   #   Unit = {
+   #     Description = "GlobalProtect openconnect client";
+   #   };
+   #   Service = {
+   #     ExecStart = "${pkgs.sudo}/bin/sudo ${pkgs.gpclient}/bin/gpclient --fix-openssl connect staff-access.anu.edu.au";
+   #   };
+   # };
   };
   users.users.jcranney = {
     isNormalUser = true;
