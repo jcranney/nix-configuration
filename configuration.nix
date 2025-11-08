@@ -109,7 +109,7 @@
   # Use home manager to set up user configuration
   home-manager.users.jcranney = { pkgs, ... }: {
     nixpkgs.config.packageOverrides = pkgs: {
-      nur-jcranney = import (fetchTarball "https://github.com/jcranney/nur-packages/archive/refs/tags/v0.4.tar.gz") {
+      nur-jcranney = import (fetchTarball "https://github.com/jcranney/nur-packages/archive/refs/tags/v0.5.tar.gz") {
         inherit pkgs;
       };
     };
