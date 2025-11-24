@@ -105,22 +105,21 @@
     "jcranney"
   ];
 
-
   # Use home manager to set up user configuration
   home-manager.users.jcranney = { pkgs, ... }: {
     nixpkgs.config.packageOverrides = pkgs: {
-      nur-jcranney = import (fetchTarball "https://github.com/jcranney/nur-packages/archive/refs/tags/v0.5.tar.gz") {
+      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
         inherit pkgs;
       };
     };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
       vim vscode ripgrep htop guake tldr wget dig xclip # core cli/dev tools
-      insync nur-jcranney.para-audit  # filesystem/organisation
+      insync nur.repos.jcranney.para-audit  # filesystem/organisation
       openscad prusa-slicer freecad inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
       uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
-      xournalpp libreoffice vlc  # normal human stuff
+      xournalpp libreoffice vlc gnome-tweaks  # normal human stuff
     ];
     programs.git = {
       enable = true;
