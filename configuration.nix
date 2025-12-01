@@ -135,6 +135,7 @@
          ll = "ls -ltAh";
          vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
          copy = "xclip -sel clip";
+         ipy = "$HOME/.venv/bin/ipython";
       };
       sessionVariables = {
          PARA_HOME = "$HOME/gdrive";
