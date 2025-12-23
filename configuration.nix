@@ -5,17 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = let 
-    # replace this with an actual commit id or tag
-    sopsCommit = "6e5a38e08a2c31ae687504196a230ae00ea95133";
-  in [ 
+  imports = [ 
     <home-manager/nixos>
     ./hardware-configuration.nix
-    "${builtins.fetchTarball {
-      url = "https://github.com/Mic92/sops-nix/archive/${sopsCommit}.tar.gz";
-      # replace this with an actual hash
-      sha256 = "02gmjxfad757d2c4is749sn2d781rw17y1fbw7xm6c4b9n5wmz2j";
-    }}/modules/sops"
   ];
 
   # Bootloader.
@@ -24,12 +16,6 @@
   boot.loader.grub.timeoutStyle = "hidden";
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -68,15 +54,13 @@
     gnome-contacts gnome-maps gnome-music gnome-weather
   ];
 
-
-  # to be able to talk to the 192.168.7.x subnet:
+  /*# to be able to talk to the 192.168.7.x subnet:
   networking.interfaces.wlp0s20f3 = {
     ipv4.addresses = [{
       address = "192.168.1.118";
       prefixLength = 16;
     }];
-  };
-
+  };*/
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -118,14 +102,19 @@
       insync nur.repos.jcranney.para-audit  # filesystem/organisation
       openscad prusa-slicer freecad inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
+      texliveFull yed  # ultiamte subaru
       uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
       xournalpp libreoffice vlc gnome-tweaks  # normal human stuff
     ];
     programs.git = {
       enable = true;
-      extraConfig.core.editor = "vim";
-      userEmail = "jesse.cranney@anu.edu.au";
-      userName = "Jesse Cranney";
+      settings = {
+        user = {
+          mail = "jesse.cranney@anu.edu.au";
+          name = "Jesse Cranney";
+        };
+        core.editor = "vim";
+      };
     };
     programs.zsh = {
       enable = true;
