@@ -37,22 +37,26 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  environment.gnome.excludePackages = with pkgs; [
-    cheese      # photo booth
-    eog         # image viewer
-    epiphany    # web browser
-    gedit       # text editor
-    simple-scan # document scanner
-    totem       # video player
-    yelp        # help viewer
-    evince      # document viewer
-    file-roller # archive manager
-    geary       # email client
-    seahorse    # password manager
-    gnome-contacts gnome-maps gnome-music gnome-weather
-  ];
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+
+  #services.displayManager.gdm.enable = true;
+  #services.desktopManager.gnome.enable = true;
+  #environment.gnome.excludePackages = with pkgs; [
+  #  cheese      # photo booth
+  #  eog         # image viewer
+  #  epiphany    # web browser
+  #  gedit       # text editor
+  #  simple-scan # document scanner
+  #  totem       # video player
+  #  yelp        # help viewer
+  #  evince      # document viewer
+  #  file-roller # archive manager
+  #  geary       # email client
+  #  seahorse    # password manager
+  #  gnome-contacts gnome-maps gnome-music gnome-weather
+  #];
 
   /*# to be able to talk to the 192.168.7.x subnet:
   networking.interfaces.wlp0s20f3 = {
@@ -200,6 +204,13 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+
+  services.jellyfin = {
+    enable = true;
+    openFirewall = false;
+    user = "jcranney";
+    # dataDir = "/home/jcranney/music";
+  };
   
   services.printing = {
     enable = true;
@@ -220,6 +231,23 @@
     waybar
     wofi
     nwg-look
+    jellyfin jellyfin-web jellyfin-ffmpeg
+    # KDE
+    kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
+    kdePackages.kcalc # Calculator
+    kdePackages.kcharselect # Tool to select and copy special characters from all installed fonts
+    kdePackages.kclock # Clock app
+    kdePackages.kcolorchooser # A small utility to select a color
+    kdePackages.kolourpaint # Easy-to-use paint program
+    kdePackages.ksystemlog # KDE SystemLog Application
+    kdePackages.sddm-kcm # Configuration module for SDDM
+    kdiff3 # Compares and merges 2 or 3 files or directories
+    kdePackages.isoimagewriter # Optional: Program to write hybrid ISO files onto USB disks
+    kdePackages.partitionmanager # Optional: Manage the disk devices, partitions and file systems on your computer
+    # Non-KDE graphical packages
+    hardinfo2 # System information and benchmarks for Linux systems
+    wayland-utils # Wayland utilities
+    wl-clipboard # Command-line copy/paste utilities for Wayland
   ];
   nix.extraOptions = "experimental-features = nix-command";
 
@@ -235,13 +263,16 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 80 443 1883 8886 ];
   # networking.firewall.allowedUDPPorts = [ 53 67 6666 6667 ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
