@@ -41,22 +41,6 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
 
-  #services.displayManager.gdm.enable = true;
-  #services.desktopManager.gnome.enable = true;
-  #environment.gnome.excludePackages = with pkgs; [
-  #  cheese      # photo booth
-  #  eog         # image viewer
-  #  epiphany    # web browser
-  #  gedit       # text editor
-  #  simple-scan # document scanner
-  #  totem       # video player
-  #  yelp        # help viewer
-  #  evince      # document viewer
-  #  file-roller # archive manager
-  #  geary       # email client
-  #  seahorse    # password manager
-  #  gnome-contacts gnome-maps gnome-music gnome-weather
-  #];
 
   /*# to be able to talk to the 192.168.7.x subnet:
   networking.interfaces.wlp0s20f3 = {
@@ -102,14 +86,14 @@
     };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
-      vim vscode ripgrep htop guake tldr wget dig xclip # core cli/dev tools
-      unzip tree
+      vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
+      unzip tree kdePackages.yakuake
       insync nur.repos.jcranney.para-audit  # filesystem/organisation
       openscad prusa-slicer freecad inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
       texliveFull yed  # ultiamte subaru
       uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
-      xournalpp libreoffice vlc gnome-tweaks  # normal human stuff
+      xournalpp libreoffice vlc  # normal human stuff
     ];
     programs.git = {
       enable = true;
@@ -153,24 +137,15 @@
     home.stateVersion = "25.11";
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
-    programs.rbw = {
-      enable = true;
-      settings = {
-        email = "jac1616@hotmail.com";
-        lock_timeout = 300;
-        pinentry = pkgs.pinentry-gnome3;
-        base_url = "https://vault.donfax.com";
-      };
-    };
-    systemd.user.services.guake = {
+    systemd.user.services.yakuake = {
       Unit = {
-        Description = "Guake drop down terminal";
+        Description = "yakuake drop down terminal";
       };
       Install = {
         WantedBy = [ "default.target" ];
       };
       Service = {
-        ExecStart = "${pkgs.guake}/bin/guake --hide";
+        ExecStart = "${pkgs.kdePackages.yakuake}/bin/yakuake";
         Restart = "always";
       };
     };
@@ -209,7 +184,6 @@
     enable = true;
     openFirewall = false;
     user = "jcranney";
-    # dataDir = "/home/jcranney/music";
   };
   
   services.printing = {
@@ -220,25 +194,15 @@
     ];
   };
 
-  programs.hyprland.enable = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    kitty
-    waybar
-    wofi
-    nwg-look
     jellyfin jellyfin-web jellyfin-ffmpeg
     # KDE
-    kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
     kdePackages.kcalc # Calculator
     kdePackages.kcharselect # Tool to select and copy special characters from all installed fonts
     kdePackages.kclock # Clock app
     kdePackages.kcolorchooser # A small utility to select a color
-    kdePackages.kolourpaint # Easy-to-use paint program
     kdePackages.ksystemlog # KDE SystemLog Application
     kdePackages.sddm-kcm # Configuration module for SDDM
     kdiff3 # Compares and merges 2 or 3 files or directories
