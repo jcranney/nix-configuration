@@ -87,7 +87,7 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
       vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
-      unzip tree kdePackages.yakuake
+      unzip tree kdePackages.yakuake gnumake
       insync nur.repos.jcranney.para-audit  # filesystem/organisation
       openscad prusa-slicer freecad inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
