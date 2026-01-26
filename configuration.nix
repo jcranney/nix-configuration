@@ -92,6 +92,7 @@
       openscad prusa-slicer inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
       texliveFull yed  # ultiamte subaru
+      qbittorrent
       uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
       xournalpp libreoffice vlc  # normal human stuff
     ];
