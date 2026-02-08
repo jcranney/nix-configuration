@@ -94,7 +94,7 @@
       texliveFull yed  # ultiamte subaru
       qbittorrent
       uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
-      xournalpp libreoffice vlc  # normal human stuff
+      xournalpp libreoffice vlc imagemagickBig  # normal human stuff
     ];
     programs.git = {
       enable = true;
