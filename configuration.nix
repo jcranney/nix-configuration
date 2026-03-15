@@ -41,15 +41,6 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
 
-
-  /*# to be able to talk to the 192.168.7.x subnet:
-  networking.interfaces.wlp0s20f3 = {
-    ipv4.addresses = [{
-      address = "192.168.1.118";
-      prefixLength = 16;
-    }];
-  };*/
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "au";
@@ -75,6 +66,7 @@
   nix.settings.trusted-users = [
     "root"
     "jcranney"
+    "frida"
   ];
 
   # Use home manager to set up user configuration
@@ -87,11 +79,12 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
       vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
-      unzip tree kdePackages.yakuake gnumake
+      unzip tree kdePackages.yakuake gnumake watchexec
       insync nur.repos.jcranney.para-audit  # filesystem/organisation
-      openscad prusa-slicer inkscape  # design/3d printing
+      openscad freecad
+      prusa-slicer inkscape  # design/3d printing
       slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
-      texliveFull yed  # ultiamte subaru
+      texliveFull yed mermaid-cli  # ultiamte subaru
       qbittorrent
       uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
       xournalpp libreoffice vlc imagemagickBig  # normal human stuff
@@ -150,14 +143,6 @@
         Restart = "always";
       };
     };
-   # systemd.user.services.vpn = {
-   #   Unit = {
-   #     Description = "GlobalProtect openconnect client";
-   #   };
-   #   Service = {
-   #     ExecStart = "${pkgs.sudo}/bin/sudo ${pkgs.gpclient}/bin/gpclient --fix-openssl connect staff-access.anu.edu.au";
-   #   };
-   # };
   };
   users.users.jcranney = {
     isNormalUser = true;
@@ -167,7 +152,6 @@
 
   environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh.enable = true;
-
 
   programs.nix-ld = {
     enable = true;
@@ -181,12 +165,6 @@
     openFirewall = true;
   };
 
-  services.jellyfin = {
-    enable = true;
-    openFirewall = false;
-    user = "jcranney";
-  };
-  
   services.printing = {
     enable = true;
     drivers = with pkgs; [
@@ -216,35 +194,60 @@
   ];
   nix.extraOptions = "experimental-features = nix-command";
 
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
     openFirewall = true;
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ 80 443 1883 8886 ];
-  # networking.firewall.allowedUDPPorts = [ 53 67 6666 6667 ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = true;
+  
+  system.stateVersion = "25.05"; # never change this
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
 
+  home-manager.users.frida = { pkgs, ... }: {
+    home.packages = with pkgs; [ 
+      vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
+      unzip tree kdePackages.yakuake gnumake
+      qbittorrent
+      xournalpp libreoffice vlc imagemagickBig  # normal human stuff
+    ];
+    programs.zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      shellAliases = {
+         ll = "ls -ltAh";
+         ipy = "$HOME/.venv/bin/ipython";
+      };
+      sessionVariables = {
+         EDITOR = "vim";
+      };
+    };
+    programs.zsh.oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" ];
+      theme = "mortalscumbag";
+    };
+    programs.firefox.enable = true;
+    home.stateVersion = "25.11";
+    # Allow unfree packages
+    nixpkgs.config.allowUnfree = true;
+    systemd.user.services.yakuake = {
+      Unit = {
+        Description = "yakuake drop down terminal";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.kdePackages.yakuake}/bin/yakuake";
+        Restart = "always";
+      };
+    };
+  };
+  users.users.frida = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+  };
 }
