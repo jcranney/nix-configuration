@@ -66,7 +66,6 @@
   nix.settings.trusted-users = [
     "root"
     "jcranney"
-    "frida"
   ];
 
   # Use home manager to set up user configuration
@@ -107,7 +106,7 @@
          ll = "ls -ltAh";
          vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
          copy = "xclip -sel clip";
-         ipy = "$HOME/.venv/bin/ipython";
+         ipython = "nix-shell -p python313 python313Packages.numpy python313Packages.ipython python313Packages.matplotlib --run ipython";
       };
       sessionVariables = {
          PARA_HOME = "$HOME/gdrive";
@@ -176,7 +175,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    jellyfin jellyfin-web jellyfin-ffmpeg
     # KDE
     kdePackages.kcalc # Calculator
     kdePackages.kcharselect # Tool to select and copy special characters from all installed fonts
@@ -204,50 +202,4 @@
   
   system.stateVersion = "25.05"; # never change this
 
-
-  home-manager.users.frida = { pkgs, ... }: {
-    home.packages = with pkgs; [ 
-      vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
-      unzip tree kdePackages.yakuake gnumake
-      qbittorrent
-      xournalpp libreoffice vlc imagemagickBig  # normal human stuff
-    ];
-    programs.zsh = {
-      enable = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-      shellAliases = {
-         ll = "ls -ltAh";
-         ipy = "$HOME/.venv/bin/ipython";
-      };
-      sessionVariables = {
-         EDITOR = "vim";
-      };
-    };
-    programs.zsh.oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "mortalscumbag";
-    };
-    programs.firefox.enable = true;
-    home.stateVersion = "25.11";
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
-    systemd.user.services.yakuake = {
-      Unit = {
-        Description = "yakuake drop down terminal";
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.kdePackages.yakuake}/bin/yakuake";
-        Restart = "always";
-      };
-    };
-  };
-  users.users.frida = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-  };
 }
