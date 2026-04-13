@@ -78,6 +78,7 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     home.packages = with pkgs; [ 
       vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
+      arduino-ide ffmpeg_7-full
       unzip tree kdePackages.yakuake gnumake watchexec
       insync nur.repos.jcranney.para-audit  # filesystem/organisation
       openscad freecad
