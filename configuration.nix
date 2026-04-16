@@ -99,6 +99,12 @@
         core.editor = "vim";
       };
     };
+    programs.fzf = {
+      enable = true;
+fileWidgetOptions = [
+        "--preview 'head {}'"
+      ];
+    };
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
