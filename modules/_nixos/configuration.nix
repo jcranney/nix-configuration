@@ -7,15 +7,17 @@
 {
   imports = [ 
     <home-manager/nixos>
-    ./hardware-configuration.nix
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 10;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.timeoutStyle = "hidden";
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "burter"; # Define your hostname.
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -68,27 +70,10 @@
     "jcranney"
   ];
 
+
   # Use home manager to set up user configuration
   home-manager.users.jcranney = { pkgs, ... }: {
-    nixpkgs.config.packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
-        inherit pkgs;
-      };
-    };
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    home.packages = with pkgs; [ 
-      vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
-      arduino-ide ffmpeg_7-full
-      unzip tree kdePackages.yakuake gnumake watchexec
-      insync nur.repos.jcranney.para-audit  # filesystem/organisation
-      openscad freecad
-      prusa-slicer inkscape  # design/3d printing
-      slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
-      texliveFull yed mermaid-cli  # ultiamte subaru
-      qbittorrent
-      uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
-      xournalpp libreoffice vlc imagemagickBig  # normal human stuff
-    ];
     programs.git = {
       enable = true;
       settings = {

@@ -1,7 +1,33 @@
-# nix-configuration
+# Getting Started Guide
 
-so, not sure if this is the best solution but it's working for now.
+Steps you can follow after cloning this template:
 
-On a new nixos machine, I need to clone this repo, then `rm -rf /etc/nixos` and replace it with a symlink to this repo. E.g., `ln -s $PARA_GIT/nix-configuration /etc/nixos`
+- Be sure to read the [den documentation](https://vic.github.io/den)
 
-This way I get updates through `para` if my config is out of sync.
+- Update den input.
+
+```console
+nix flake update den
+```
+
+- Edit [modules/hosts.nix](modules/hosts.nix)
+
+- Build
+
+```console
+# default action is build
+nix run .#igloo
+
+# pass any other nh action
+nix run .#igloo -- switch
+```
+
+- Run the VM
+
+We recommend to use a VM develop cycle so you can play with the system before applying to your hardware.
+
+See [modules/vm.nix](modules/vm.nix)
+
+```console
+nix run .#vm
+```
