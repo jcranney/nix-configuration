@@ -9,10 +9,4 @@
   # host<->user provides
   den.ctx.user.includes = [ den.provides.mutual-provider ];
 
-  # User TODO: REMOVE THIS
-  den.aspects.jcranney.nixos = {
-    boot.loader.grub.enable = false;
-    fileSystems."/".device = "/dev/fake";
-    fileSystems."/".fsType = "auto";
-  };
 }
