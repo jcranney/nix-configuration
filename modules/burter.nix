@@ -1,15 +1,7 @@
 {
   # host aspect
   den.aspects.burter = {
-    
-    # Bootloader.
-    boot.loader.systemd-boot = {
-      enable = true;
-      configurationLimit = 10;
-    };
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.grub.timeoutStyle = "hidden";
-    
+   
     networking.networkmanager.enable = true;
 
     # host NixOS configuration
@@ -32,6 +24,35 @@
           wl-clipboard # Command-line copy/paste utilities for Wayland
         ];
         imports = [ ./_nixos/burter-hardware-configuration.nix ];
+
+        fileSystems."/" =
+          { device = "/dev/disk/by-uuid/92266580-ae04-400b-a3c2-a778abfd6e73";
+            fsType = "ext4";
+          };
+
+        fileSystems."/boot" =
+          { device = "/dev/disk/by-uuid/44B8-CCA2";
+            fsType = "vfat";
+            options = [ "fmask=0077" "dmask=0077" ];
+          };
+        # Bootloader.
+        boot.loader.systemd-boot = {
+          enable = true;
+          configurationLimit = 10;
+        };
+        boot.loader.efi.canTouchEfiVariables = true;
+        
+        # Add GRUB configuration (not in your hardware file)  
+        boot.loader.grub = {  
+          enable = true;  
+          devices = [ "/dev/disk/by-uuid/44B8-CCA2" ];  # Your boot partition  
+          efiSupport = true;  # Since you have a separate /boot partition  
+        };
+        
+        boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" ];
+        boot.initrd.kernelModules = [ ];
+        boot.kernelModules = [ "kvm-intel" ];
+        boot.extraModulePackages = [ ];
       };
 
     # host provides default home environment for its users

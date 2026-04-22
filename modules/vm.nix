@@ -4,9 +4,6 @@
 { inputs, den, ... }:
 {
 
-  # USER TODO: remove this tty-autologin used for the VM
-  den.aspects.burter.includes = [ (den.provides.tty-autologin "jcranney") ];
-  
   perSystem =
     { pkgs, ... }:
     {
