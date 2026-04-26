@@ -5,17 +5,11 @@
 { config, pkgs, ... }:
 
 {
-  # imports = [ 
-  #   # <home-manager/nixos>
-  #   ./hardware-configuration.nix
-  # ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.timeoutStyle = "hidden";
 
-  networking.hostName = "nixos"; # Define your hostname.
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -63,17 +57,12 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
-  nix.settings.trusted-users = [
-    "root"
-    "jcranney"
-  ];
-
-  # Use home manager to set up user configuration
-  users.users.jcranney = {
-    isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    shell = pkgs.zsh;
-  };
+  # # Use home manager to set up user configuration
+  # users.users.jcranney = {
+  #   isNormalUser = true;
+  #   extraGroups = [ "networkmanager" "wheel" "docker" ];
+  #   shell = pkgs.zsh;
+  # };
 
   environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh.enable = true;

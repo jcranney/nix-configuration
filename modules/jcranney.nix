@@ -1,26 +1,22 @@
+{ ... }:
 {
   den.aspects.jcranney = {
-    homeManager = { pkgs, ... }: {
-      # nixpkgs.config.packageOverrides = pkgs: {
-      #   nur = import (builtins.fetchTarball {
-      #     url = "https://github.com/nix-community/NUR/archive/main.tar.gz";
-      #     sha256 = "sha256:1p9jz85zij4crfj010zdl3p22qxhriv48l5p573jcdx6g10q8hnf";
-      #   }
-      #   ) {
-      #     inherit pkgs;
-      #   };
-      # };    
+    homeManager = { pkgs, ... }: 
+    # let 
+    #   nur = import (builtins.fetchTarball {
+    #     url = "https://github.com/nix-community/NUR/archive/main.tar.gz";
+    #     sha256 = "sha256:1p9jz85zij4crfj010zdl3p22qxhriv48l5p573jcdx6g10q8hnf";
+    #   }) { inherit pkgs; };
+    # in
+    {
       home.packages = with pkgs; [ 
-        hello
-        vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
-        arduino-ide ffmpeg_7-full
-        unzip tree kdePackages.yakuake gnumake watchexec
-        insync # nur.repos.jcranney.para-audit  # filesystem/organisation
-        # openscad freecad
-        # prusa-slicer inkscape  # design/3d printing
-        slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
+        vim ripgrep htop tldr wget dig xclip # core cli/dev tools
+        ffmpeg_7-full
+        vscode insync 
+        unzip tree gnumake watchexec
+        # nur.repos.jcranney.para-audit # filesystem/organisation
+        yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
         texliveFull yed mermaid-cli  # ultiamte subaru
-        qbittorrent
         uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
         xournalpp libreoffice vlc imagemagickBig  # normal human stuff
       ];
