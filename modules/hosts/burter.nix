@@ -1,8 +1,7 @@
-{ den, ... }: {
+{ den, pkgs, ... }: {
   flake.den = den;  #
   den.hosts.x86_64-linux.burter.users.jcranney = {
     includes = [
-      den.aspects.graphical
       den.provides.primary-user
     ];
   };
@@ -18,7 +17,10 @@
       ];
     };
     # burter-jesse specific configuration
-    provides.jcranney = {
+    provides.jcranney = {pkgs, ...}: {
+      includes = [
+        den.aspects.graphical
+      ];
       homeManager = { pkgs, ... }: {
         home.packages = with pkgs; [
           slack 
