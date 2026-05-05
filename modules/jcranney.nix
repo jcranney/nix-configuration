@@ -1,3 +1,4 @@
+{ ... }:
 {
   den.aspects.jcranney = {
     homeManager = { pkgs, ... }: {
@@ -11,7 +12,6 @@
         prusa-slicer inkscape  # design/3d printing
         slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
         texliveFull yed mermaid-cli  # ultiamte subaru
-        qbittorrent
         uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
         xournalpp libreoffice vlc imagemagickBig  # normal human stuff
       ];

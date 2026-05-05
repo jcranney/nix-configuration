@@ -2,6 +2,12 @@
 {
   den.default.nixos.system.stateVersion = "25.05";
   den.default.homeManager.home.stateVersion = "25.11";
+  den.default = {
+    includes = [
+      den.provides.hostname
+      den.provides.define-user
+    ];
+  };
 
   # enable hm by default
   den.schema.user.classes = lib.mkDefault [ "homeManager" ];
