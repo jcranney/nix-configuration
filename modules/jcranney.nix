@@ -18,11 +18,14 @@
       programs.git = {
         enable = true;
         settings = {
+          pull.rebase = true;
           user = {
             mail = "jesse.cranney@anu.edu.au";
             name = "Jesse Cranney";
           };
+          github.user = "jcranney";
           core.editor = "vim";
+          init.defaultBranch = "main";
         };
       };
       programs.fzf = {

@@ -1,12 +1,12 @@
 { lib, den, ... }:
 {
-  den.default.nixos.system.stateVersion = "25.05";
-  den.default.homeManager.home.stateVersion = "25.11";
   den.default = {
     includes = [
       den.provides.hostname
       den.provides.define-user
     ];
+    nixos.system.stateVersion = "25.05";
+    homeManager.home.stateVersion = "25.11";
   };
 
   # enable hm by default

@@ -1,13 +1,14 @@
 { den, pkgs, ... }: {
   flake.den = den;  #
-  den.hosts.x86_64-linux.burter.users.jcranney = {
-    includes = [
-      den.provides.primary-user
-    ];
-  };
+  den.hosts.x86_64-linux.burter.users.jcranney = {};
+  #   includes = [
+  #     den.provides.primary-user
+  #   ];
+  # };
 
   den.aspects.burter = {
-    den.provides.primary-user = [ "jcranney" ];
+    den.aspects.jcranney.includes = [ den.provides.primary-user ];
+    
     # host NixOS configuration
     nixos = { pkgs, ... }:
     {
