@@ -16,7 +16,7 @@
           };
           meta = with lib; {
             description = "A tool for auditing/organising/interacting with my para system.";
-            homepage = https://github.com/jcranney/para-audit;
+            homepage = "https://github.com/jcranney/para-audit";
             license = licenses.unlicense;
             platforms = platforms.all;
             mainProgram = "para";

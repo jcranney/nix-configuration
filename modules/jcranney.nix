@@ -1,6 +1,13 @@
-{ ... }:
 {
   den.aspects.jcranney = {
+    user.extraGroups = [ "docker" ];
+    nixos = {
+      programs.nix-ld = {
+        enable = true;
+      };
+      programs.zsh.enable = true;
+      virtualisation.docker.enable = true;
+    };
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [ 
         hello nixd
@@ -15,8 +22,9 @@
         uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
         xournalpp libreoffice vlc imagemagickBig  # normal human stuff
       ];
-
+  
       programs.direnv.enable = true;
+
       programs.git = {
         enable = true;
         settings = {

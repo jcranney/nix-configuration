@@ -4,10 +4,13 @@
 
   den.aspects.burter = {
     # host NixOS configuration
+    includes = [
+      den.aspects.bootable
+      den.aspects.graphical
+    ];
     nixos = {
       imports = [ 
-        ./_nixos/configuration.nix 
-        ./_nixos/hardware-configuration.nix 
+        ./_nixos/burter-hardware-configuration.nix 
       ];
     };
 
