@@ -2,8 +2,8 @@
 {
   den.default = {
     includes = [
-      den.provides.hostname
-      den.provides.define-user
+      den.batteries.hostname
+      den.batteries.define-user
     ];
     nixos.system.stateVersion = "25.05";
     homeManager.home.stateVersion = "25.11";

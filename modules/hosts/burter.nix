@@ -7,8 +7,6 @@
   # };
 
   den.aspects.burter = {
-    den.aspects.jcranney.includes = [ den.provides.primary-user ];
-    
     # host NixOS configuration
     nixos = { pkgs, ... }:
     {
@@ -18,9 +16,10 @@
       ];
     };
     # burter-jesse specific configuration
-    provides.jcranney = {pkgs, ...}: {
+    provides.jcranney = {
       includes = [
         den.aspects.graphical
+        den.batteries.primary-user
       ];
       homeManager = { pkgs, ... }: {
         home.packages = with pkgs; [
