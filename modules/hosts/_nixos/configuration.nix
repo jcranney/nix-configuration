@@ -57,13 +57,6 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
-  # # Use home manager to set up user configuration
-  # users.users.jcranney = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "networkmanager" "wheel" "docker" ];
-  #   shell = pkgs.zsh;
-  # };
-
   environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh.enable = true;
 

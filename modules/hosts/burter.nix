@@ -1,20 +1,16 @@
-{ den, pkgs, ... }: {
+{ den, ... }: {
   flake.den = den;  #
   den.hosts.x86_64-linux.burter.users.jcranney = {};
-  #   includes = [
-  #     den.provides.primary-user
-  #   ];
-  # };
 
   den.aspects.burter = {
     # host NixOS configuration
-    nixos = { pkgs, ... }:
-    {
+    nixos = {
       imports = [ 
         ./_nixos/configuration.nix 
         ./_nixos/hardware-configuration.nix 
       ];
     };
+
     # burter-jesse specific configuration
     provides.jcranney = {
       includes = [
@@ -23,7 +19,7 @@
       ];
       homeManager = { pkgs, ... }: {
         home.packages = with pkgs; [
-          slack 
+          slack
         ];
       };
     };

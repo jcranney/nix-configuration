@@ -3,7 +3,7 @@
   den.aspects.jcranney = {
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [ 
-        hello
+        hello nixd
         vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
         arduino-ide ffmpeg_7-full
         unzip tree kdePackages.yakuake gnumake watchexec
@@ -15,6 +15,8 @@
         uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
         xournalpp libreoffice vlc imagemagickBig  # normal human stuff
       ];
+
+      programs.direnv.enable = true;
       programs.git = {
         enable = true;
         settings = {
@@ -28,6 +30,7 @@
           init.defaultBranch = "main";
         };
       };
+      
       programs.fzf = {
         enable = true;
         fileWidgetOptions = [
