@@ -56,8 +56,6 @@
           ipython = "nix-shell -p python313 python313Packages.numpy python313Packages.ipython python313Packages.matplotlib --run ipython";
         };
         sessionVariables = {
-          PARA_HOME = "$HOME/gdrive";
-          PARA_GIT = "$HOME/git";
           EDITOR = "vim";
         };
         initContent = let
