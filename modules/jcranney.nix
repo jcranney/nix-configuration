@@ -1,6 +1,6 @@
 {
   den.aspects.jcranney = {
-    user.extraGroups = [ "docker" ];
+    user.extraGroups = [ "docker" "dialout" ];
     nixos = {
       programs.nix-ld = {
         enable = true;
@@ -12,7 +12,7 @@
       home.packages = with pkgs; [ 
         hello nixd
         vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
-        arduino-ide ffmpeg_7-full
+        arduino-ide python3
         unzip tree kdePackages.yakuake gnumake watchexec
         insync # nur.repos.jcranney.para-audit  # filesystem/organisation
         openscad freecad
