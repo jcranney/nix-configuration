@@ -8,7 +8,7 @@
       programs.zsh.enable = true;
       virtualisation.docker.enable = true;
     };
-    homeManager = { pkgs, ... }: {
+    homeManager = { pkgs, config, ... }: {
       home.packages = with pkgs; [ 
         hello nixd
         vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
@@ -71,7 +71,10 @@
         plugins = [ "git" ];
         theme = "mortalscumbag";
       };
-      programs.firefox.enable = true;
+      programs.firefox = {
+        enable = true;
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
+      };
       home.stateVersion = "25.11";
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;
