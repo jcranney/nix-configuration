@@ -10,9 +10,10 @@
     };
     homeManager = { pkgs, config, ... }: {
       home.packages = with pkgs; [ 
-        hello nixd
+        hello nixd cargo-flamegraph
         vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
         arduino-ide python3
+        python313Packages.astropy
         unzip tree kdePackages.yakuake gnumake watchexec
         insync # nur.repos.jcranney.para-audit  # filesystem/organisation
         openscad freecad
@@ -53,7 +54,6 @@
           ll = "ls -ltAh";
           vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
           copy = "xclip -sel clip";
-          ipython = "nix-shell -p python313 python313Packages.numpy python313Packages.ipython python313Packages.matplotlib --run ipython";
         };
         sessionVariables = {
           EDITOR = "vim";

@@ -24,6 +24,7 @@
         home.packages = with pkgs; [
           slack
         ];
+        programs.zsh.shellAliases.snrs = "sudo nixos-rebuild switch --flake .#burter";
       };
     };
   };
