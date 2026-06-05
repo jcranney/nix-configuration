@@ -5,14 +5,14 @@
         cowsay
         (rustPlatform.buildRustPackage rec {
           pname = "para-audit";
-          version = "v0.1.16";
-          cargoHash = "sha256-WI7xjYGaPgvnhNmzZc77v+rAxjxSwXpIhvzNFIVZqSY=";
+          version = "v0.1.17";
+          cargoHash = "sha256-QNcyszJXlWRzmJv4Dz8Dj/BxnHay/WPvuSAxgI8AyR8=";
           nativeBuildInputs = [ pkg-config ];
           buildInputs = [ openssl ];
           src = fetchgit {
             url = "https://github.com/jcranney/para-audit.git";
             tag = version;
-            hash = "sha256-/27GRBca2F2LnD8Pwh8EcoE0heeRMsVZ8cU13uzgnec=";
+            hash = "sha256-gdocardYVD5n/6Ry3Q5XvG6q6GiVi4twBwC99MQiNQc=";
           };
           meta = with lib; {
             description = "A tool for auditing/organising/interacting with my para system.";
