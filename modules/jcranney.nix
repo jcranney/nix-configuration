@@ -8,7 +8,7 @@
       programs.zsh.enable = true;
       virtualisation.docker.enable = true;
     };
-    homeManager = { pkgs, config, ... }: {
+    homeManager = { pkgs, config, nixos, ... }: {
       home.packages = with pkgs; [ 
         hello nixd cargo-flamegraph
         vim vscode ripgrep htop tldr wget dig xclip # core cli/dev tools
@@ -54,6 +54,7 @@
           ll = "ls -ltAh";
           vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
           copy = "xclip -sel clip";
+          snrs = "sudo nixos-rebuild switch";
         };
         sessionVariables = {
           EDITOR = "vim";
@@ -62,7 +63,7 @@
           paratracker = "$PARA_HOME/resources/para_tracking/para_tracker.py";
         in
           ''        
-          ${paratracker}
+          ${pkgs.uv}/bin/uv run ${paratracker}
           para audit
           '';
       };

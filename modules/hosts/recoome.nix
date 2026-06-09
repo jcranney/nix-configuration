@@ -1,20 +1,18 @@
 { den, ... }: {
-  flake.den = den;  #
-  den.hosts.x86_64-linux.burter.users.jcranney = {};
+  flake.den = den;
+  den.hosts.x86_64-linux.recoome.users.jcranney = {};
 
-  den.aspects.burter = {
-    # host NixOS configuration
+  den.aspects.recoome = {
     includes = [
       den.aspects.bootable
       den.aspects.graphical
     ];
     nixos = {
       imports = [ 
-        ./_nixos/burter-hardware-configuration.nix 
+        ./_nixos/recoome-hardware-configuration.nix 
       ];
+      programs.steam.enable = true;
     };
-
-    # burter-jesse specific configuration
     provides.jcranney = {
       includes = [
         den.aspects.graphical
@@ -22,7 +20,7 @@
       ];
       homeManager = { pkgs, ... }: {
         home.packages = with pkgs; [
-          slack
+          slack 
         ];
       };
     };
