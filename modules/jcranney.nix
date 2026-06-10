@@ -16,7 +16,6 @@
         python313Packages.astropy
         unzip tree kdePackages.yakuake gnumake watchexec
         insync # nur.repos.jcranney.para-audit  # filesystem/organisation
-        openscad freecad
         prusa-slicer inkscape  # design/3d printing
         slack yed zoom-us quickemu graphviz subversion gpclient  # aitc projects
         texliveFull yed mermaid-cli  # ultiamte subaru
@@ -31,7 +30,7 @@
         settings = {
           pull.rebase = true;
           user = {
-            mail = "jesse.cranney@anu.edu.au";
+            email = "jesse.cranney@anu.edu.au";
             name = "Jesse Cranney";
           };
           github.user = "jcranney";
