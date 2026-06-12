@@ -31,7 +31,7 @@
         wl-clipboard # Command-line copy/paste utilities for Wayland
       ];
     };
-    homeManager = { pkgs, ... }: {
+    homeManager = { pkgs, config, ... }: {
       home.packages = with pkgs; [
         qbittorrent vscode arduino-ide kdePackages.yakuake
         freecad insync

@@ -1,5 +1,8 @@
-{
+{ den, ... }: {
   den.aspects.jcranney = {
+    includes = [
+        (den.batteries.user-shell "zsh")
+    ];
     user.extraGroups = [ "docker" "dialout" ];
     nixos = {
       programs.nix-ld = {
