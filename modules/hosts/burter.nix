@@ -5,7 +5,7 @@
   den.aspects.burter = {
     # host NixOS configuration
     includes = [
-      den.aspects.bootable
+      den.aspects.systemd-boot
       den.aspects.graphical
     ];
     nixos = {

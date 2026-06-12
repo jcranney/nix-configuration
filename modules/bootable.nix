@@ -1,11 +1,30 @@
 {
-  den.aspects.bootable = {
+  den.aspects.systemd-boot = {
     nixos = {pkgs, ...}: {
       # Bootloader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.loader.grub.timeoutStyle = "hidden";
+    };
+    includes = [
+      den.aspects.common
+    ];
+  };
 
+  den.aspects.grub-boot = {
+    nixos = {pkgs, ...}: {
+      # Bootloader.
+      boot.loader.grub.enable = true;
+      boot.loader.grub.device = "/dev/sda";
+      boot.loader.grub.useOSProber = false;
+    };
+    includes = [
+      den.aspects.common
+    ];
+  };
+
+  den.aspects.common = {
+    nixos = {pkgs, ...}: {
       # Select internationalisation properties.
       i18n.defaultLocale = "en_GB.UTF-8";
 
@@ -29,10 +48,18 @@
         layout = "au";
         variant = "";
       };
-
+      
       services.avahi = {
         enable = true;
         nssmdns4 = true;
+        publish = {
+          enable = true;
+          addresses = true;
+          domain = true;
+          hinfo = true;
+          userServices = true;
+          workstation = true;
+        };
         openFirewall = true;
       };
 
@@ -53,6 +80,7 @@
       };
 
       networking.firewall.enable = true;
-    };
-  };
+    }
+
+  }
 }

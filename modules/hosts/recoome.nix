@@ -4,7 +4,7 @@
 
   den.aspects.recoome = {
     includes = [
-      den.aspects.bootable
+      den.aspects.systemd-boot
       den.aspects.graphical
     ];
     nixos = {

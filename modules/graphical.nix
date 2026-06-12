@@ -34,11 +34,26 @@
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [
         qbittorrent vscode arduino-ide kdePackages.yakuake
-        freecad
+        freecad insync
         prusa-slicer inkscape  # design/3d printing
         insync kicad ltspice wine
+        arduino-ide kdePackages.yakuake 
+        slack yed zoom-us graphviz
+        xournalpp libreoffice vlc
         # openscad # on their own lines because they keep breaking
       ];
+      programs.zsh = {
+        shellAliases = {
+          vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
+        };
+        initContent = let
+          paratracker = "$PARA_HOME/resources/para_tracking/para_tracker.py";
+        in
+          ''        
+          ${pkgs.uv}/bin/uv run ${paratracker}
+          para audit
+          '';
+      };
     };
   };
 }
