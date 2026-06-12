@@ -1,5 +1,5 @@
 {
-  den.aspects.jcranney = {
+  den.aspects.para = {
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [ 
         cowsay

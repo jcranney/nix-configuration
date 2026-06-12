@@ -10,15 +10,10 @@
     };
     homeManager = { pkgs, config, nixos, ... }: {
       home.packages = with pkgs; [ 
-        hello nixd cargo-flamegraph
+        nixd cargo-flamegraph
         vim ripgrep htop tldr wget # core cli/dev tools
-        python3 python313Packages.astropy
         unzip tree gnumake watchexec
-        prusa-slicer inkscape  # design/3d printing
-        subversion gpclient  # aitc projects
-        texliveFull mermaid-cli  # ultiamte subaru
-        uv cargo rustc maturin clang openssl pkg-config  # python + rust (until I master flakes)
-        imagemagickBig  # normal human stuff
+        uv openssl
       ];
   
       programs.direnv.enable = true;

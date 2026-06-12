@@ -39,6 +39,7 @@
         insync kicad ltspice wine
         arduino-ide kdePackages.yakuake 
         slack yed zoom-us graphviz
+        texliveFull mermaid-cli  # ultiamte subaru
         xournalpp libreoffice vlc
         # openscad # on their own lines because they keep breaking
       ];
