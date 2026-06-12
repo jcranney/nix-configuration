@@ -55,10 +55,6 @@
         plugins = [ "git" ];
         theme = "mortalscumbag";
       };
-      programs.firefox = {
-        enable = true;
-        configPath = "${config.xdg.configHome}/mozilla/firefox";
-      };
       home.stateVersion = "25.11";
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;

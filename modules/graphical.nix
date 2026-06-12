@@ -43,6 +43,10 @@
         xournalpp libreoffice vlc
         # openscad # on their own lines because they keep breaking
       ];
+      programs.firefox = {
+        enable = true;
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
+      };
       programs.zsh = {
         shellAliases = {
           vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
