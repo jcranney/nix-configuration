@@ -11,7 +11,7 @@
     provides.jcranney.includes = [ den.batteries.primary-user ];
     provides.abdu.includes = [ den.batteries.primary-user ];
     
-    nixos = {
+    nixos = { pkgs, lib, ... }: {
       imports = [ 
         ./_nixos/agnes-hardware-configuration.nix
       ];

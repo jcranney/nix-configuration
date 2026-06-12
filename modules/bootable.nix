@@ -1,4 +1,4 @@
-{
+{ den, ... }: {
   den.aspects.systemd-boot = {
     nixos = {pkgs, ...}: {
       # Bootloader.
@@ -80,7 +80,7 @@
       };
 
       networking.firewall.enable = true;
-    }
+    };
 
-  }
+  };
 }

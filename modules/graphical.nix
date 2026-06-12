@@ -54,6 +54,18 @@
           para audit
           '';
       };
+      systemd.user.services.yakuake = {
+        Unit = {
+          Description = "yakuake drop down terminal";
+        };
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+        Service = {
+          ExecStart = "${pkgs.kdePackages.yakuake}/bin/yakuake";
+          Restart = "always";
+        };
+      };
     };
   };
 }
