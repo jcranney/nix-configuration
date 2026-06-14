@@ -6,7 +6,6 @@
     includes = [
       den.aspects.systemd-boot
       den.aspects.graphical
-      den.aspects.work
     ];
     nixos = {
       imports = [ 
@@ -17,8 +16,9 @@
     provides.jcranney = {
       includes = [
         den.aspects.graphical
-        den.batteries.primary-user
         den.aspects.para
+        den.batteries.primary-user
+        den.aspects.work
       ];
       homeManager = { pkgs, ... }: {
         home.packages = with pkgs; [

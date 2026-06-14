@@ -7,7 +7,6 @@
     includes = [
       den.aspects.systemd-boot
       den.aspects.graphical
-      den.aspects.work
     ];
     nixos = {
       imports = [ 
@@ -21,6 +20,7 @@
         den.aspects.graphical
         den.aspects.para
         den.batteries.primary-user
+        den.aspects.work
       ];
       homeManager = { pkgs, ... }: {
         home.packages = with pkgs; [
