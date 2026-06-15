@@ -10,6 +10,13 @@
       };
       programs.zsh.enable = true;
       virtualisation.docker.enable = true;
+      services.tailscale = {
+        enable = true;
+        # Enable tailscale at startup
+
+        # If you would like to use a preauthorized key
+        #authKeyFile = "/run/secrets/tailscale_key";
+  };
     };
     homeManager = { pkgs, config, nixos, ... }: {
       home.packages = with pkgs; [ 
