@@ -6,12 +6,10 @@
           name = "magicdraw";
           buildInputs = [ unzip ];
           nativeBuildInputs = [ openjdk8 ];
-
           src = /home/jcranney/MagicDraw_190_sp2_no_install.zip;
           unpackPhase = ''
             mkdir tmp
             unzip $src -d tmp
-            ls
           '';
           installPhase = ''
             cp -r tmp $out
