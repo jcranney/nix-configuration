@@ -1,7 +1,7 @@
 { inputs, ... }: {
   den.aspects.para = {
     homeManager = { pkgs, ... }: {
-      home.packages = [ inputs.para.packages.${pkgs.system}.default ];
+      home.packages = [ inputs.para.packages.${pkgs.stdenv.hostPlatform.system}.default ];
       programs.zsh = {
         sessionVariables = {
           PARA_HOME = "$HOME/gdrive";
