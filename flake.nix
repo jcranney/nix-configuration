@@ -18,6 +18,10 @@
     import-tree.url = "github:vic/import-tree";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-lib.follows = "nixpkgs";
+    para = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:jcranney/para-audit";
+    };
   };
 
 }
