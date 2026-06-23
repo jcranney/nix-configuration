@@ -48,9 +48,6 @@
         configPath = "${config.xdg.configHome}/mozilla/firefox";
       };
       programs.zsh = {
-        shellAliases = {
-          vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
-        };
         initContent = let
           paratracker = "$PARA_HOME/resources/para_tracking/para_tracker.py";
         in
