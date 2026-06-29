@@ -11,7 +11,7 @@
       programs.zsh.enable = true;
       virtualisation.docker.enable = true;
       services.tailscale = {
-        enable = true;
+        enable = false;
         # Enable tailscale at startup
 
         # If you would like to use a preauthorized key

@@ -109,11 +109,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1782110606,
-        "narHash": "sha256-NX7x26dh5roYVDIlXIAn1GKXwrPT9g2X+Wt5QUCDaAU=",
+        "lastModified": 1782773846,
+        "narHash": "sha256-2pmffcWhboVesh7OFXjVM6sl6K0l9lTApJj6ZULxu6Y=",
         "owner": "jcranney",
         "repo": "para-audit",
-        "rev": "b74a8c489b028fb29673ef40b7bfb43dbede2040",
+        "rev": "529ddc9732974637045da685f1e2debd94bf68cf",
         "type": "github"
       },
       "original": {
