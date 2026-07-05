@@ -26,11 +26,6 @@
         home.packages = with pkgs; [
           slack
         ];
-        programs.zsh = {
-          shellAliases = {
-            magicdraw = "cd $HOME/magicdraw; nix develop";
-          };
-        };
       };
     };
   };
