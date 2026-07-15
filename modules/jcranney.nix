@@ -8,6 +8,10 @@
       programs.nix-ld = {
         enable = true;
       };
+      programs.ssh = {
+        forwardX11 = true;
+        setXAuthLocation = true;
+      };
       programs.zsh.enable = true;
       virtualisation.docker.enable = true;
       services.tailscale = {
@@ -23,7 +27,7 @@
         nixd cargo-flamegraph
         vim ripgrep htop tldr wget # core cli/dev tools
         unzip tree gnumake watchexec
-        uv openssl
+        uv openssl waypipe
       ];
   
       programs.direnv.enable = true;
@@ -44,7 +48,7 @@
       
       programs.fzf = {
         enable = true;
-        fileWidgetOptions = [
+        fileWidget.options = [
             "--preview 'head {}'"
         ];
       };
