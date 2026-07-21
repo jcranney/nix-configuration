@@ -27,7 +27,7 @@
         nixd cargo-flamegraph
         vim ripgrep htop tldr wget # core cli/dev tools
         unzip tree gnumake watchexec
-        uv openssl waypipe zellij
+        uv openssl
       ];
   
       programs.direnv.enable = true;
