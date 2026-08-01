@@ -22,6 +22,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:jcranney/para-audit";
     };
+    shmim-tools = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:jcranney/shmim-tools";
+    };
+    shmimshow = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:jcranney/shmimshow";
+    };
   };
 
 }

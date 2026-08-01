@@ -17,6 +17,7 @@
       includes = [
         den.aspects.graphical
         den.aspects.para
+        # den.aspects.shmim
         den.batteries.primary-user
         den.aspects.work
       ];
