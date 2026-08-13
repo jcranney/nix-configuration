@@ -4,7 +4,7 @@
         (den.batteries.user-shell "zsh")
     ];
     user.extraGroups = [ "docker" "dialout" ];
-    nixos = {
+    nixos = {pkgs, ...}: {
       programs.nix-ld = {
         enable = true;
       };
@@ -20,7 +20,11 @@
 
         # If you would like to use a preauthorized key
         #authKeyFile = "/run/secrets/tailscale_key";
-  };
+      };
+      services.udev.extraRules = ''
+ACTION=="add", ATTR{idVendor}=="03c3", RUN+="${pkgs.bash} -c 'echo 200 >/sys/module/usbcore/parameters/usbfs_memory_mb'"
+SUBSYSTEMS=="usb", ATTR{idVendor}=="03c3", MODE="0666"
+      '';
     };
     homeManager = { pkgs, config, nixos, ... }: {
       home.packages = with pkgs; [ 
