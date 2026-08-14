@@ -31,7 +31,7 @@ SUBSYSTEMS=="usb", ATTR{idVendor}=="03c3", MODE="0666"
         nixd cargo-flamegraph
         vim ripgrep htop tldr wget # core cli/dev tools
         unzip tree gnumake watchexec
-        uv openssl
+        uv openssl waypipe
       ];
   
       programs.direnv = {
