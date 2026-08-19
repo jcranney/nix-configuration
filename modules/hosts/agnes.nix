@@ -19,8 +19,21 @@
       # Open ports in the firewall.
       networking.firewall.allowedTCPPorts = [ 
         1883  # mqtt unencrypted port
+        8888  # ffmpeg http camera server for mediamtx
         # other applications have an "openFirewall=true;" option
       ];
+
+      systemd.services.temp-logger = {
+        enable = true;
+        serviceConfig = {
+          ExecStart = ''/home/jcranney/temp-logger'';
+          WorkingDirectory = ''/home/jcranney'';
+          Type = "simple";
+        };
+        description = "Service for logging temperature data to file for post-processing";
+        after = [ "network.target" ];
+	wantedBy = [ "default.target" ];
+      };
 
       services.mosquitto = {
         enable = true;
@@ -38,6 +51,20 @@
         openFirewall = true;
         port = 5001;
         plugins = plugins: with plugins; [ mqtt ];
+      };
+
+      environment.systemPackages = [ pkgs.x265 ];
+      services.mediamtx = {
+        enable = true;
+        settings = {
+          paths = {
+            cam = {
+              runOnInit = "${pkgs.ffmpeg-full}/bin/ffmpeg -f v4l2 -i /dev/video0 -c:v libx265 -f rtsp rtsp://0.0.0.0:$RTSP_PORT/$RTSP_PATH";
+              runOnInitRestart = true;
+            };
+          };
+        };
+        allowVideoAccess = true;
       };
 
       services.node-red = {
