@@ -1,7 +1,8 @@
 {
   den.aspects.graphical = {
-    nixos = { pkgs, ... }: {
-      services.desktopManager.plasma6.enable = true;
+    nixos = { pkgs, lib, ... }: {
+      programs.niri.enable = true;
+      # services.desktopManager.plasma6.enable = true;
       services.displayManager.sddm.enable = true;
       services.displayManager.sddm.wayland.enable = true;
       # Enable sound with pipewire.
@@ -34,8 +35,12 @@
         wayland-utils # Wayland utilities
         wl-clipboard # Command-line copy/paste utilities for Wayland
       ];
+      fonts.packages = with pkgs; [
+        nerd-fonts.fira-code
+        nerd-fonts.droid-sans-mono
+      ];
     };
-    homeManager = { pkgs, config, ... }: {
+    homeManager = { pkgs, config, lib, ... }: {
       home.packages = with pkgs; [
         qbittorrent vscode arduino-ide kdePackages.yakuake
         freecad insync
@@ -46,6 +51,7 @@
         texliveFull mermaid-cli  # ultiamte subaru
         xournalpp libreoffice vlc
         # openscad # on their own lines because they keep breaking
+        swaybg # wallpaper
       ];
       programs.firefox = {
         enable = true;
@@ -60,18 +66,14 @@
           para audit
           '';
       };
-      systemd.user.services.yakuake = {
-        Unit = {
-          Description = "yakuake drop down terminal";
-        };
-        Install = {
-          WantedBy = [ "default.target" ];
-        };
-        Service = {
-          ExecStart = "${pkgs.kdePackages.yakuake}/bin/yakuake";
-          Restart = "always";
-        };
-      };
+      # for niri:
+      programs.alacritty.enable = true; # Super+T in the default setting (terminal)
+      programs.fuzzel.enable = true; # Super+D in the default setting (app launcher)
+      programs.swaylock.enable = true; # Super+Alt+L in the default setting (screen locker)
+      programs.waybar.enable = true; # launch on startup in the default setting (bar)
+      services.mako.enable = true; # notification daemon
+      services.swayidle.enable = true; # idle management daemon
+      services.polkit-gnome.enable = true; # polkit
     };
   };
 }
