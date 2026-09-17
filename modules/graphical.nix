@@ -2,6 +2,7 @@
   den.aspects.graphical = {
     nixos = { pkgs, lib, ... }: {
       programs.niri.enable = true;
+      programs.dms-shell.enable = true;
       # services.desktopManager.plasma6.enable = true;
       services.displayManager.sddm.enable = true;
       services.displayManager.sddm.wayland.enable = true;
@@ -46,12 +47,13 @@
         freecad insync
         prusa-slicer inkscape  # design/3d printing
         insync kicad ltspice wine
-        arduino-ide kdePackages.yakuake 
+        arduino-ide bitwarden-desktop
         slack yed zoom-us graphviz
         texliveFull mermaid-cli  # ultiamte subaru
         xournalpp libreoffice vlc
         # openscad # on their own lines because they keep breaking
         swaybg # wallpaper
+        nautilus
       ];
       programs.firefox = {
         enable = true;
@@ -70,7 +72,6 @@
       programs.alacritty.enable = true; # Super+T in the default setting (terminal)
       programs.fuzzel.enable = true; # Super+D in the default setting (app launcher)
       programs.swaylock.enable = true; # Super+Alt+L in the default setting (screen locker)
-      programs.waybar.enable = true; # launch on startup in the default setting (bar)
       services.mako.enable = true; # notification daemon
       services.swayidle.enable = true; # idle management daemon
       services.polkit-gnome.enable = true; # polkit
