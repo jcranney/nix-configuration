@@ -15,10 +15,6 @@
         alsa.support32Bit = true;
         pulse.enable = true;
       };
-      programs.evolution = {
-        enable = true;
-        plugins = [ pkgs.evolution-ews ];
-      };
 
       environment.systemPackages = with pkgs; [
         # KDE
@@ -40,6 +36,7 @@
         nerd-fonts.fira-code
         nerd-fonts.droid-sans-mono
       ];
+      services.upower.enable = true;
     };
     homeManager = { pkgs, config, lib, ... }: {
       home.packages = with pkgs; [
