@@ -31,12 +31,21 @@
         hardinfo2 # System information and benchmarks for Linux systems
         wayland-utils # Wayland utilities
         wl-clipboard # Command-line copy/paste utilities for Wayland
+        xwayland-satellite
       ];
       fonts.packages = with pkgs; [
         nerd-fonts.fira-code
         nerd-fonts.droid-sans-mono
       ];
       services.upower.enable = true;
+      environment.variables = {
+        LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
+          libGL
+          libxkbcommon
+          wayland
+          vulkan-loader
+        ];
+      };
     };
     homeManager = { pkgs, config, lib, ... }: {
       home.packages = with pkgs; [

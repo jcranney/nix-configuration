@@ -9,7 +9,7 @@
         enable = true;
       };
       programs.ssh = {
-        forwardX11 = true;
+        # forwardX11 = true;
         setXAuthLocation = true;
       };
       programs.zsh.enable = true;

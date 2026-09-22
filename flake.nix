@@ -30,6 +30,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:jcranney/shmimshow";
     };
+    yorick-flake = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://github.com/jcranney/yorick-flake";
+    };
   };
 
 }
