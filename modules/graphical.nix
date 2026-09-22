@@ -39,6 +39,11 @@
       ];
       services.upower.enable = true;
       environment.variables = {
+        # The idea here is to avoid having to specify this path in every
+        # flake that produces a GUI, just specify it at the system level
+        # like it would be for almost all deployed systems. This doesn't
+        # feel like the "nix-est" way to do things, but I'm growing tired
+        # of the nix friction.
         LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [
           libGL
           libxkbcommon
