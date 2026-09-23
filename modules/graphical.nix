@@ -3,6 +3,7 @@
     nixos = { pkgs, lib, ... }: {
       programs.niri.enable = true;
       programs.dms-shell.enable = true;
+      # programs.regreet.enable = true;
       # services.desktopManager.plasma6.enable = true;
       services.displayManager.sddm.enable = true;
       services.displayManager.sddm.wayland.enable = true;
@@ -15,6 +16,7 @@
         alsa.support32Bit = true;
         pulse.enable = true;
       };
+
 
       environment.systemPackages = with pkgs; [
         # KDE
@@ -59,13 +61,14 @@
         prusa-slicer inkscape  # design/3d printing
         insync kicad ltspice wine
         arduino-ide bitwarden-desktop
-        slack yed zoom-us graphviz
+        slack yed graphviz
         texliveFull mermaid-cli  # ultiamte subaru
         xournalpp libreoffice vlc
         # openscad # on their own lines because they keep breaking
         swaybg # wallpaper
         nautilus
       ];
+      services.gnome-keyring.enable = true;
       programs.firefox = {
         enable = true;
         configPath = "${config.xdg.configHome}/mozilla/firefox";
