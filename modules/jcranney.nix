@@ -66,6 +66,8 @@ SUBSYSTEMS=="usb", ATTR{idVendor}=="03c3", MODE="0666"
         shellAliases = {
           ll = "ls -ltAh";
           snrs = "sudo nixos-rebuild switch";
+          nd = "nix develop";
+          sv = "source .venv/bin/activate";
         };
         sessionVariables = {
           EDITOR = "vim";
