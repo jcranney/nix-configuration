@@ -81,6 +81,9 @@
           ${pkgs.uv}/bin/uv run ${paratracker}
           para audit
           '';
+        shellAliases = {
+          nt = "alacritty --working-directory $(pwd)";
+        };
       };
       # for niri:
       programs.alacritty.enable = true; # Super+T in the default setting (terminal)
