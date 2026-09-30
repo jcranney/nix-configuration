@@ -82,7 +82,7 @@
           para audit
           '';
         shellAliases = {
-          nt = "alacritty --working-directory $(pwd)";
+          nt = "alacritty msg create-window --working-directory $(pwd)";
         };
       };
       # for niri:
