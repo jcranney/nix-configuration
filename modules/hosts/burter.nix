@@ -8,10 +8,15 @@
       den.aspects.systemd-boot
       den.aspects.graphical
     ];
-    nixos = {
+    nixos = {lib , ...}: {
       imports = [ 
         ./_nixos/burter-hardware-configuration.nix 
       ];
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+             "steam"
+            "steam-unwrapped"
+           ];
+      programs.steam.enable = true;
     };
 
     # burter-jesse specific configuration
