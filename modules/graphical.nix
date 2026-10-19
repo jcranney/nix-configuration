@@ -39,6 +39,11 @@
         nerd-fonts.fira-code
         nerd-fonts.droid-sans-mono
       ];
+      programs.wireshark = {
+        enable = true;
+        usbmon.enable = true;
+        dumpcap.enable = true;
+      };
       services.upower.enable = true;
       environment.variables = {
         # The idea here is to avoid having to specify this path in every

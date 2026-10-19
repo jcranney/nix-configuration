@@ -17,6 +17,7 @@
             "steam-unwrapped"
            ];
       programs.steam.enable = true;
+      networking.firewall.allowedTCPPorts = [ 44020 ];
     };
 
     # burter-jesse specific configuration
