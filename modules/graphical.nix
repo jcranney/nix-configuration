@@ -2,7 +2,7 @@
   den.aspects.graphical = {
     nixos = { pkgs, lib, ... }: {
       programs.niri.enable = true;
-      programs.dms-shell.enable = true;
+      programs.dux-shell.enable = true;
       # programs.regreet.enable = true;
       # services.desktopManager.plasma6.enable = true;
       services.displayManager.sddm.enable = true;
@@ -59,12 +59,26 @@
         ];
       };
     };
-    homeManager = { pkgs, config, lib, ... }: {
+    homeManager = { pkgs, config, lib, ... }:
+      let nixosRecentCommitTarball = 
+        builtins.fetchTarball {
+          url = "https://github.com/NixOS/nixpkgs/archive/7fd4004d0511991fff3a0524856a9be09e28c5f0.tar.gz";
+          sha256 = "0d543n8vngv9wljjxzy20psm64sqwq2x9q8nmmydz2p28bba96lb";
+        };
+      in {
+      nixpkgs.config = {
+        packageOverrides = pkgs: {
+          nixosRecentCommit = import nixosRecentCommitTarball {
+            config = config.nixpkgs.config;
+            system = "x86_64-linux";
+          };
+        };
+      };
       home.packages = with pkgs; [
         qbittorrent vscode arduino-ide kdePackages.yakuake
-        freecad insync
+        freecad nixosRecentCommit.insync
         prusa-slicer inkscape  # design/3d printing
-        insync kicad ltspice wine
+        kicad ltspice wine
         arduino-ide bitwarden-desktop
         slack yed graphviz
         texliveFull mermaid-cli  # ultiamte subaru
