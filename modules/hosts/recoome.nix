@@ -6,6 +6,7 @@
     includes = [
       den.aspects.systemd-boot
       den.aspects.graphical
+      den.batteries.user-aspects
     ];
     nixos = {
       imports = [ 

@@ -6,6 +6,7 @@
         python3 python313Packages.astropy
         subversion  # aitc projects
         imagemagickBig  # normal human stuff
+        mermaid-cli
       ];
     };
   };
