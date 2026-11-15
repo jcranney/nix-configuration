@@ -76,7 +76,7 @@
       };
       home.packages = with pkgs; [
         qbittorrent vscode arduino-ide kdePackages.yakuake
-        freecad nixosRecentCommit.insync
+        freecad insync
         prusa-slicer inkscape  # design/3d printing
         kicad ltspice wine
         arduino-ide bitwarden-desktop
