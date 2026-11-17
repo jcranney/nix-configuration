@@ -4,7 +4,7 @@
       home.packages = with pkgs; [ gpclient ];
       programs.zsh = {
         shellAliases = {
-          vpn = "sudo gpclient --fix-openssl connect staff-access.anu.edu.au";
+          vpn = "sudo gpclient --fix-openssl connect gpgw1.anu.edu.au --browser default";
         };
       };
     };
