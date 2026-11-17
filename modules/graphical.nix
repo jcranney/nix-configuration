@@ -79,7 +79,7 @@
         freecad insync
         prusa-slicer inkscape  # design/3d printing
         kicad ltspice wine
-        arduino-ide bitwarden-desktop
+        arduino-ide
         slack yed graphviz
         texliveFull mermaid-cli  # ultiamte subaru
         xournalpp libreoffice vlc
