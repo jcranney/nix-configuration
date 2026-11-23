@@ -58,6 +58,7 @@
           vulkan-loader
         ];
       };
+      
     };
     homeManager = { pkgs, config, lib, ... }:
       let nixosRecentCommitTarball = 
